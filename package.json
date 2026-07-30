@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "start-pwa": "ng build --aot --configuration production && npx http-server -p 8081 -c-1 dist/screensaver-options/browser",
+    "deploy:patch": "ng build --configuration=production && npm version patch && git push --follow-tags",
+    "deploy:minor": "ng build --configuration=production && npm version minor && git push --follow-tags"
   },
   "private": true,
   "packageManager": "npm@11.12.1",
