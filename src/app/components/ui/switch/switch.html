@@ -1,13 +1,13 @@
 <label class="text-foreground flex items-center gap-3 text-sm font-medium" rdxLabel [htmlFor]="fieldId()">
     <button
-      class="bg-neutral-50 data-checked:bg-neutral-50 border-neutral-200 border focus-visible:ring-ring relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full p-0 shadow-sm transition-colors outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50"
-        [id]="fieldId()"
-        rdxSwitchRoot
-        [formField]="formField()"
+      class=" border-neutral-200 bg-neutral-50 border focus-visible:ring-ring relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full p-0 shadow-sm transition-colors outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50"
+      [class]="{'data-checked:bg-brand-primary': !warning(), 'data-checked:bg-amber-600': warning()}"
+      [id]="fieldId()"
+      rdxSwitchRoot
+      [formField]="formField()"
     >
         <span
-            class="bg-neutral-200 pointer-events-none block size-5 translate-x-0.5 rounded-full shadow-sm transition-transform data-checked:translate-x-5.5"
-            [class]="{'data-checked:bg-brand-primary': !warning(), 'data-checked:bg-amber-600': warning()}"
+            class="bg-neutral-600 pointer-events-none block size-5 translate-x-0.5 rounded-full shadow-sm transition-transform data-checked:translate-x-5.5"
             rdxSwitchThumb
         ></span>
     </button>
