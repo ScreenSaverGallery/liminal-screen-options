@@ -12,7 +12,6 @@ build_app:
   before_script:
     - mkdir -p src/environments
     - echo "$ENVIRONMENT_PROD_TS" | sed 's/\\n/\n/g' > src/environments/environment.ts
-    - echo "$ANAL" | sed 's/\\n/\n/g' > public/anal.js
     - cat src/environments/environment.ts
     - |
       echo 'export const environment = { production: false };' > src/environments/environment.development.ts
