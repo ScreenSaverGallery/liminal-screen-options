@@ -39,6 +39,6 @@ deploy:
     - chmod 600 ~/.ssh/id_ed25519
     - echo "$CANIS_KNOWN_HOSTS" > ~/.ssh/known_hosts
   script:
-    - scp -r dist/* "$CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST:$CANIS_SAVER_DEPLOY_PATH"
+    - scp -r dist/* "$CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST:$CANIS_OPTIONS_DEPLOY_PATH"
   only:
     - tags
