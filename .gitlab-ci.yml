@@ -32,17 +32,12 @@ deploy:
     - job: build_app
       artifacts: true
   before_script:
-    - apt update && apt install -y openssh-client rsync
+    - apt update && apt install -y openssh-client
     - mkdir -p ~/.ssh
     - cp "$CANIS_DEPLOY_KEY" ~/.ssh/id_ed25519
     - chmod 600 ~/.ssh/id_ed25519
     - echo "$CANIS_KNOWN_HOSTS" > ~/.ssh/known_hosts
   script:
-    - echo "Deploying dist/ to $CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST:$CANIS_OPTIONS_DEPLOY_PATH"
-    - echo "Remote directory listing before deploy:"
-    - ssh "$CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST" "ls -la $CANIS_OPTIONS_DEPLOY_PATH || echo 'Path does not exist'"
-    - rsync -avz --delete dist/ "$CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST:$CANIS_OPTIONS_DEPLOY_PATH"
-    - echo "Remote directory listing after deploy:"
-    - ssh "$CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST" "ls -la $CANIS_OPTIONS_DEPLOY_PATH"
+    - scp -r dist/* "$CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST:$CANIS_OPTIONS_DEPLOY_PATH"
   only:
     - tags
