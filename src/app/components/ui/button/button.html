@@ -1,0 +1,11 @@
+<ng-template #mainContent><ng-content /></ng-template>
+
+@if(type() === 'normal') {
+  <button class="text-foreground text-sm font-medium cursor-pointer pt-1 pb-1 pl-2 pr-2 bg-neutral-50 text-neutral-500 rounded-2xl"><ng-container *ngTemplateOutlet="mainContent" /></button>
+}
+@if(type() === 'accent') {
+  <button class="text-foreground text-sm font-medium cursor-pointer pt-1 pb-1 pl-2 pr-2 bg-brand-primary text-neutral-50  rounded-2xl"><ng-container *ngTemplateOutlet="mainContent" /></button>
+}
+@if(type() === 'warn') {
+  <button class="text-foreground text-sm font-medium cursor-pointer pt-1 pb-1 pl-2 pr-2 bg-amber-600 text-neutral-50  rounded-2xl"><ng-container *ngTemplateOutlet="mainContent" /></button>
+}

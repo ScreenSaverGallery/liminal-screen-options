@@ -17,7 +17,12 @@
     "@angular/forms": "^22.0.0",
     "@angular/platform-browser": "^22.0.0",
     "@angular/router": "^22.0.0",
-    "@liminal-screen/api": "^0.2.0",
+    "@floating-ui/dom": "^1.7.4",
+    "@internationalized/date": "^3.12.2",
+    "@internationalized/number": "^3.6.7",
+    "@liminal-screen/api": "^0.4.0",
+    "@lucide/angular": "^1.28.0",
+    "@radix-ng/primitives": "^1.1.2",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.3.3",
     "tslib": "^2.3.0"

@@ -1,0 +1,75 @@
+@if(isInTauri()) {
+@if(app(); as app) {
+
+<div class="options-container flex flex-col justify-between">
+  <!-- OPTIONS HEADER -->
+  <header class="flex flex-col p-4 bg-neutral-200 rounded-2xl">
+    <div class="flex justify-start items-center w-full gap-3.5">
+      <div class="flex flex-col gap-2 items-start flex-1/2">
+        <app-button (click)="preview()" [type]="mandatoryOptions().debug ? 'warn' : 'accent'">
+          @if(mandatoryOptions().debug) {
+            🪲
+          } @else {
+            🦥
+          }
+          Preview
+        </app-button>
+        <app-button (click)="checkUpdates()">
+          @if(!updateAvailable()) {
+            Check for Updates
+          } @else {
+            Install Updates
+          }
+        </app-button> <small class="text-caption text-neutral-400">{{updateMessage()}}</small>
+      </div>
+        <!--<h1 class="text-heading-1">{{options.appName}}</h1>
+        <p class="text-body">{{options.appDescription}}</p>-->
+      <form class="flex flex-col gap-2 items-start flex-1/2">
+        <app-switch fieldId="muted" [formField]="customOptionsForm.muted">Muted Sound</app-switch>
+        <app-switch fieldId="sensitive" [formField]="customOptionsForm.sensitive">Allow Sensitive Content</app-switch>
+        <app-switch fieldId="voice-over" [formField]="customOptionsForm.voiceOver">Activate VoiceOver</app-switch>
+      </form>
+    </div>
+  </header>
+  <!-- OPTIONS BODY -->
+  <div class="options-body bg-neutral-50 rounded-2xl p-4 flex">
+    <div class="flex-1/2 flex flex-col gap-2">
+      <app-number-field fieldId="starts-in" [formField]="mandatoryOptionsForm.startsIn">Starts In</app-number-field>
+      <app-number-field fieldId="display-off-in" [formField]="mandatoryOptionsForm.displayOffIn">Display Off In</app-number-field>
+      <app-number-field fieldId="require-pass-in" [formField]="mandatoryOptionsForm.requirePassIn">Require Password In</app-number-field>
+    </div>
+    <div class="flex-1/2 flex flex-col gap-2">
+      <app-switch fieldId="autostart" [formField]="mandatoryOptionsForm.autostart">Open at Login</app-switch>
+      <app-switch fieldId="run-on-battery" [formField]="mandatoryOptionsForm.runOnBattery">Run on Battery</app-switch>
+      <app-switch fieldId="notifications" [formField]="mandatoryOptionsForm.notificationsEnabled">Enable Notifications</app-switch>
+    </div>
+  </div>
+  <!--<div class="options-archive">
+    Archive: TODO
+  </div>-->
+  <div class="pt-4">
+    <app-switch fieldId="debug" [formField]="mandatoryOptionsForm.debug" [warning]="true">Debug Mode</app-switch>
+  </div>
+  <!-- OPTIONS FOOTER -->
+  <footer class="bg-neutral-200 rounded-2xl">
+    <div class="options-actions flex gap-3 p-4">
+      <app-icon class="w-6 h-auto cursor-pointer" (click)="openUrl('https://screensaver.gallery')"></app-icon>
+      <app-button (click)="openUrl('https://opencollective.com/screensavergallery')">Donate 💸</app-button>
+      <app-button (click)="openUrl('https://github.com/ScreenSaverGallery/liminal-screen')">Contribute <code><></code></app-button>
+      <app-button (click)="openUrl('https://screensaver.gallery/continuous-open-call')">Get involved 🎨</app-button>
+      <span class="spacer"></span>
+      <app-button [type]="mandatoryOptions().debug ? 'warn' : 'accent'" (click)="close()">Close</app-button>
+    </div>
+  </footer>
+</div>
+
+
+
+
+
+
+
+}
+} @else {
+<!--NO CONTENT IF THE SITE OPENED OUTSIDE OF TAURI APP-->
+}

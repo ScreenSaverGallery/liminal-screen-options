@@ -1,4 +1,3 @@
-
 You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
 ## TypeScript Best Practices
@@ -55,3 +54,30 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use the `providedIn: 'root'` option for singleton services
 - Prefer the `@Service` decorator over `@Injectable({providedIn: 'root'})` for new singleton services (Angular v22+)
 - Use the `inject()` function instead of constructor injection
+
+<!-- @radix-ng/primitives:start -->
+
+## Radix NG Primitives
+
+This project uses `@radix-ng/primitives` — signals-first, headless Angular UI primitives.
+
+- Primitives are **headless** directives: they ship no styles. Style them by targeting the
+  `data-*` state attributes they expose (`[data-state="open"]`, `[data-disabled]`, …),
+  never internal classes.
+- Import each primitive from its secondary entry point, e.g.
+  `import { RdxAccordionRootDirective } from '@radix-ng/primitives/accordion';`
+- Compound primitives (Dialog, Select, Menu, Accordion, …) are assembled from nested parts
+  (Root → Trigger → Content/Item). Children resolve their Root via DI — keep the hierarchy intact.
+- Inputs/outputs are signal-based; two-way bind values with `[(value)]`.
+- Keep accessibility intact: visible labels stay programmatically associated with their control;
+  do not remove ARIA attributes or keyboard handling the primitives provide.
+- Never invent an API. If an input, output, or selector is not in the docs below, it does not exist.
+
+Documentation for agents:
+
+- Index: https://radix-ng.com/llms.txt — everything in one file: https://radix-ng.com/llms-full.txt
+- Per-component Markdown: `https://radix-ng.com/components/<name>.md`
+- Offline Agent Skills (APIs, examples, `data-*` styling contract, common mistakes):
+  `npx skills add radix-ng/primitives/skills`
+
+<!-- @radix-ng/primitives:end -->

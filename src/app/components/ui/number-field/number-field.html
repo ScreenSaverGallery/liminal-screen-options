@@ -1,0 +1,33 @@
+<div
+  class="flex gap-2.5 items-center"
+  [format]="format"
+  [step]="0.1"
+  rdxNumberFieldRoot
+  [formField]="formField()"
+  [id]="fieldId()"
+>
+  <div
+    class="border-neutral-200 bg-background focus-within:ring-blue-400 flex h-6 w-fit items-center rounded-md border shadow-sm focus-within:ring-2 "
+    rdxNumberFieldGroup
+  >
+    <button
+      class="text-foreground hover:bg-muted flex size-9 items-center justify-center rounded-l-md outline-none select-none disabled:pointer-events-none disabled:opacity-40"
+      rdxNumberFieldDecrement
+    >
+      <svg class="flex" [lucideIcon]="Minus" size="16" />
+    </button>
+    <input
+      class="text-foreground h-9 w-20 bg-transparent text-center tabular-nums outline-none"
+      rdxNumberFieldInput
+    />
+    <button
+      class="text-foreground hover:bg-muted flex size-9 items-center justify-center rounded-r-md outline-none select-none disabled:pointer-events-none disabled:opacity-40"
+      rdxNumberFieldIncrement
+    >
+      <svg class="flex" [lucideIcon]="Plus" size="16" />
+    </button>
+  </div>
+  <label class="text-foreground text-sm text-neutral-400 font-medium" rdxLabel [htmlFor]="fieldId()"
+    ><ng-content
+  /></label>
+</div>
