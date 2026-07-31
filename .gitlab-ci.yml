@@ -32,11 +32,8 @@ deploy:
     - job: build_app
       artifacts: true
   before_script:
-    - apt update && apt install -y openssh-client
+    - apt update && apt install -y openssh-client rsync
     - mkdir -p ~/.ssh
-    - cp "$CANIS_DEPLOY_KEY" ~/.ssh/id_ed25519
-    - chmod 600 ~/.ssh/id_ed25519
-    - echo "$CANIS_KNOWN_HOSTS" > ~/.ssh/known_hosts
     - |
       if [ ! -f "$CANIS_DEPLOY_KEY" ]; then
         echo "ERROR: CANIS_DEPLOY_KEY does not point to a file" >&2
@@ -44,11 +41,25 @@ deploy:
         exit 1
       fi
     - |
-      if ! grep -q "BEGIN OPENSSH PRIVATE KEY" "$CANIS_DEPLOY_KEY"; then
-        echo "ERROR: CANIS_DEPLOY_KEY does not contain a valid OpenSSH private key" >&2
+      cp "$CANIS_DEPLOY_KEY" ~/.ssh/id_ed25519
+      chmod 600 ~/.ssh/id_ed25519
+      sed -i 's/\r$//' ~/.ssh/id_ed25519
+      if ! ssh-keygen -y -f ~/.ssh/id_ed25519 > ~/.ssh/id_ed25519.pub; then
+        echo "ERROR: CANIS_DEPLOY_KEY is not a valid private key" >&2
         exit 1
       fi
+    - echo "$CANIS_KNOWN_HOSTS" > ~/.ssh/known_hosts
   script:
-    - scp -r dist/* "$CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST:$CANIS_OPTIONS_DEPLOY_PATH"
+    - |
+      if [ -z "$CANIS_OPTIONS_DEPLOY_PATH" ]; then
+        echo "ERROR: CANIS_OPTIONS_DEPLOY_PATH is not set" >&2
+        exit 1
+      fi
+    - echo "Deploying dist/ to $CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST:$CANIS_OPTIONS_DEPLOY_PATH"
+    - echo "Remote directory listing before deploy:"
+    - ssh "$CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST" "ls -la $CANIS_OPTIONS_DEPLOY_PATH || echo 'Path does not exist'"
+    - rsync -avz --delete "dist/" "$CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST:$CANIS_OPTIONS_DEPLOY_PATH/"
+    - echo "Remote directory listing after deploy:"
+    - ssh "$CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST" "ls -la $CANIS_OPTIONS_DEPLOY_PATH"
   only:
     - tags
