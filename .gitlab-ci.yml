@@ -37,6 +37,17 @@ deploy:
     - cp "$CANIS_DEPLOY_KEY" ~/.ssh/id_ed25519
     - chmod 600 ~/.ssh/id_ed25519
     - echo "$CANIS_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - |
+      if [ ! -f "$CANIS_DEPLOY_KEY" ]; then
+        echo "ERROR: CANIS_DEPLOY_KEY does not point to a file" >&2
+        echo "Make sure the GitLab variable is set to 'File' type, not 'Variable'" >&2
+        exit 1
+      fi
+    - |
+      if ! grep -q "BEGIN OPENSSH PRIVATE KEY" "$CANIS_DEPLOY_KEY"; then
+        echo "ERROR: CANIS_DEPLOY_KEY does not contain a valid OpenSSH private key" >&2
+        exit 1
+      fi
   script:
     - scp -r dist/* "$CANIS_DEPLOY_USER@$CANIS_DEPLOY_HOST:$CANIS_OPTIONS_DEPLOY_PATH"
   only:
