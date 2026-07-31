@@ -1,7 +1,7 @@
 import { Component, OnInit, signal, OnDestroy, effect } from '@angular/core';
 import { RdxButtonDirective } from '@radix-ng/primitives/button';
 // form
-import {form, FormField} from '@angular/forms/signals';
+import {form, FormField, min} from '@angular/forms/signals';
 // components
 import { Switch } from '../ui/switch/switch';
 import { Button } from '../ui/button/button';
@@ -74,9 +74,9 @@ export class Options implements OnInit, OnDestroy {
 
   // options
   mandatoryOptions = signal<ScreensaverMandatoryOptions>({
-    startsIn: 5,
-    displayOffIn: 10,
-    requirePassIn: 0,
+    startsIn: 5.0,
+    displayOffIn: 10.0,
+    requirePassIn: 0.0,
     runOnBattery: false,
     debug: false,
     notificationsEnabled: false,
@@ -89,7 +89,12 @@ export class Options implements OnInit, OnDestroy {
     voiceOver: false,
   });
   // options forms
-  mandatoryOptionsForm = form(this.mandatoryOptions);
+  mandatoryOptionsForm = form(this.mandatoryOptions, (schema) => {
+    min(schema.startsIn, 1, { message: 'Delay must be at least 1 minute.' });
+    min(schema.displayOffIn, 0, { message: 'Display-off timeout cannot be negative. Set to 0 to disable.' });
+    min(schema.requirePassIn, 0, { message: 'Password timeout cannot be negative. Set to 0 to disable.' });
+  });
+
   customOptionsForm = form(this.customOptions);
 
   constructor() {
@@ -102,9 +107,9 @@ export class Options implements OnInit, OnDestroy {
       }
 
       const payload: MandatoryOptions & { customOptions: CustomOptions } = {
-        startsIn: mandatory.startsIn ?? 0,
-        displayOffIn: mandatory.displayOffIn ?? 0,
-        requirePassIn: mandatory.requirePassIn ?? 0,
+        startsIn: mandatory.startsIn ?? 5.0,
+        displayOffIn: mandatory.displayOffIn ?? 10.0,
+        requirePassIn: mandatory.requirePassIn ?? 0.0,
         runOnBattery: mandatory.runOnBattery,
         debug: mandatory.debug,
         notificationsEnabled: mandatory.notificationsEnabled,

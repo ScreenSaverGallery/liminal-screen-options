@@ -31,9 +31,9 @@ export class NumberField {
   formField = input.required<Field<number | null>>();
   fieldId = input.required<string>();
   protected readonly format: Intl.NumberFormatOptions = {
-      signDisplay: 'exceptZero',
-      minimumFractionDigits: 1,
-      maximumFractionDigits: 2
+    // signDisplay: 'exceptZero',
+    // minimumFractionDigits: 1,
+    // maximumFractionDigits: 2
   };
 
   protected readonly Minus = Minus;

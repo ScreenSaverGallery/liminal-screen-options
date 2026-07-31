@@ -1,0 +1,1 @@
+- [x] avoid `number-field` component has a negative value
