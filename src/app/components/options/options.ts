@@ -90,7 +90,7 @@ export class Options implements OnInit, OnDestroy {
   });
   // options forms
   mandatoryOptionsForm = form(this.mandatoryOptions, (schema) => {
-    min(schema.startsIn, 1, { message: 'Delay must be at least 1 minute.' });
+    min(schema.startsIn, 0, { message: 'Delay must be at least 1 minute.' });
     min(schema.displayOffIn, 0, { message: 'Display-off timeout cannot be negative. Set to 0 to disable.' });
     min(schema.requirePassIn, 0, { message: 'Password timeout cannot be negative. Set to 0 to disable.' });
   });
