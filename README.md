@@ -1,6 +1,12 @@
-# ScreensaverOptions
+# Options for ScreenSavergallery
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.8.
+This project is ScreenSaverGallery's (fork of [Liminal Screen](https://github.com/screensavergallery/liminal-screen)) remote Options window (PWA) with IPC bridge [API](https://www.npmjs.com/package/@liminal-screen/api).
+
+![ScreenSaverGallery options window](./screensavergallery-options-screenshot.png)
+
+---
+
+The boilerplate was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.8.
 
 ## Development server
 
